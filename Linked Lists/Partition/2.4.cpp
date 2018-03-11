@@ -1,5 +1,3 @@
-// THIS ANSWER IS INCORRECT
-
 #include <iostream>
 #include <cstdlib>
 #include <stack>
@@ -18,12 +16,19 @@ void partitionX(node*, auto);
 node* generateLinkedList();
 void printLinkedList(node*);
 
+
 int main()
 {
     node* head = generateLinkedList();
+	int input;
+
     printLinkedList(head);
-    partitionX(head, 3);
+	std::cout << "Enter partition number: ";
+	std::cin >> input;
+
+    partitionX(head, input);
     printLinkedList(head);
+	return 0;
 }
 
 void partitionX(node* head, auto x)
@@ -32,28 +37,29 @@ void partitionX(node* head, auto x)
     auto current = head;
 
     while(current->next != NULL)
-    {
-        if ( current->data < x )
-            myStack.push(current);
-        current = current->next;
-    }
+	{
+		if (current->data < x)
+			myStack.push(current);
+		current = current->next;
+	}
 
-    current = head;
+	auto size = myStack.size();
+	current = head;
+	for (size_t i = 0; i < size; i++)
+	{
+		if (current->data >= x)
+		{
+			auto temp = myStack.top();
+			myStack.pop();
+			auto tempNumber = temp->data;
 
-    while(current->next != NULL)
-    {
-        if ( current->data >= x )
-        {
-            auto temp = myStack.top();
-            myStack.pop();
-            auto tempNumber = temp->data;
-            temp->data = current->data;
-            current->data = tempNumber;
-        }
-        current = current->next;
-    }
+			temp->data = current->data;
+			current->data = tempNumber;
+		}
+		current = current->next;
+
+	}
 }
-
 
 
 void printLinkedList(node* head)
@@ -72,22 +78,16 @@ node* generateLinkedList()
 {
     auto head = new node;
     auto current = head;
-    auto temp = new node;
-
+    auto temp = new node {0, NULL};
 
     for(int i = 0; i < LENGTH; i++)
     {
-        current->data   = rand() % 10;
-        temp->data      = rand() % 10;
-        temp->next      = NULL;
-        current->next   = temp;
-        current         = current->next;
-        temp            = new node;
+        current->data = rand() % 10;
+		current->next = temp;
+		temp = new node{0, NULL};
+		current = current->next;
     }
 
     return head;
 
 }
-
-//3 3 6 2 0 3 0 2
-// 7 9

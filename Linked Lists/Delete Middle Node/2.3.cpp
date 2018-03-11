@@ -1,10 +1,12 @@
-// THIS ANSWER IS NOT CORRECT SINCE I MISUNDERSTOOD THE QUESTION
+// This answer is incorrect since I misunderstood the question
+// This algorithm deletes the middle node by being given the head
+// If size is even will delete second middle node
 
 #include <iostream>
 #include <cstdlib>
 #include <unordered_set>
 
-#define LENGTH 10
+#define LENGTH 9
 
 struct node
 {
@@ -26,9 +28,7 @@ int main()
 
 void deleteMiddleNode(node* head)
 {
-    if (head == NULL)
-        return;
-    else if (head->next == NULL)
+    if (head == NULL || head->next == NULL)
         return;
     else if (head->next->next == NULL) {
         auto temp = head;

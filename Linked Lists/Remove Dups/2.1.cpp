@@ -30,17 +30,21 @@ void removeDuplicates(node* head)
 
     while(current->next != NULL)
     {
+		//	We only move previous if number doesn't exist in hashSet
+		//	Otherwise algorithm doesn't catch contigious duplicates
         if (set.count(current->data) > 0)
         {
             prev->next = current->next;
+			current = current->next;
         }
         else
         {
             set.insert(current->data);
+			prev = current;
+	        current = current->next;
         }
 
-        prev = current;
-        current = current->next;
+
     }
 
 }
